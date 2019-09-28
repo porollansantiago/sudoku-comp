@@ -1,6 +1,6 @@
 class Sudoku:
     def __init__(self, board):
-        self.original_board = board
+        self.original_board = board[:]
         self.board = board
 
     def game_is_over(self):
@@ -13,9 +13,11 @@ class Sudoku:
 
     def place_number(self, number, X, Y):
         number = str(number)
+        X = int(X)
+        Y = int(Y)
 
         # comprobar si el lugar esta disponible
-        if self.original_board[X][Y] != 'x':
+        if self.original_board[Y][X] != 'x':
             return self.board
 
         # comprobar si se repite en el bloque
@@ -29,14 +31,14 @@ class Sudoku:
             block_X += 4
         if block_Y == 2:
             block_Y += 4
-        for x in range(block_X, block_X + 3):
-            for y in range(block_Y, block_Y + 3):
-                if self.board[x][y] == number:
+        for y in range(block_Y, block_Y + 3):
+            for x in range(block_X, block_X + 3):
+                if self.board[y][x] == number:
                     return self.board
 
         # comprobar si se repite en la fila/columna
-        for x in range(len(self.board[0])):
-            if self.board[X][x] == number or self.board[x][Y] == number:
+        for x in range(8):
+            if self.board[Y][x] == number or self.board[x][X] == number:
                 return self.board
 
         # colocar el numero
