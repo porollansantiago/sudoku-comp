@@ -15,7 +15,7 @@ class Test_sudoku(unittest.TestCase):
                             "xxxx8xx79"])
 
     def test_place_invalid_number1(self):
-        number, X, Y = 1, 0, 0
+        number, Y, X = 1, 0, 0
         new_board = self.game.place_number(number, X, Y)
         self.assertEqual(new_board, ["53xx7xxxx",
                                      "6xx195xxx",
@@ -28,7 +28,7 @@ class Test_sudoku(unittest.TestCase):
                                      "xxxx8xx79"])
 
     def test_place_invalid_number_block(self):
-        number, X, Y = 1, 3, 0
+        number, Y, X = 1, 3, 0
         new_board = self.game.place_number(number, X, Y)
         self.assertEqual(new_board, ["53xx7xxxx",
                                      "6xx195xxx",
@@ -41,7 +41,7 @@ class Test_sudoku(unittest.TestCase):
                                      "xxxx8xx79"])
 
     def test_place_invalid_number_block2(self):
-        number, X, Y = 5, 0, 2
+        number, Y, X = 5, 0, 2
         new_board = self.game.place_number(number, X, Y)
         self.assertEqual(new_board, ["53xx7xxxx",
                                      "6xx195xxx",
@@ -54,7 +54,7 @@ class Test_sudoku(unittest.TestCase):
                                      "xxxx8xx79"])
 
     def test_place_invalid_number_block3(self):
-        number, X, Y = 8, 7, 7
+        number, Y, X = 8, 7, 7
         new_board = self.game.place_number(number, X, Y)
         self.assertEqual(new_board, ["53xx7xxxx",
                                      "6xx195xxx",
@@ -67,7 +67,7 @@ class Test_sudoku(unittest.TestCase):
                                      "xxxx8xx79"])
 
     def test_place_invalid_number_block4(self):
-        number, X, Y = 6, 3, 3
+        number, Y, X = 6, 3, 3
         new_board = self.game.place_number(number, X, Y)
         self.assertEqual(new_board, ["53xx7xxxx",
                                      "6xx195xxx",
@@ -80,7 +80,7 @@ class Test_sudoku(unittest.TestCase):
                                      "xxxx8xx79"])
 
     def test_place_invalid_number_col(self):
-        number, X, Y = 8, 7, 0
+        number, Y, X = 8, 7, 0
         new_board = self.game.place_number(number, X, Y)
         self.assertEqual(new_board, ["53xx7xxxx",
                                      "6xx195xxx",
@@ -93,7 +93,7 @@ class Test_sudoku(unittest.TestCase):
                                      "xxxx8xx79"])
 
     def test_place_invalid_number_row(self):
-        number, X, Y = 8, 8, 2
+        number, Y, X = 8, 8, 2
         new_board = self.game.place_number(number, X, Y)
         self.assertEqual(new_board, ["53xx7xxxx",
                                      "6xx195xxx",
@@ -106,7 +106,7 @@ class Test_sudoku(unittest.TestCase):
                                      "xxxx8xx79"])
 
     def test_place_valid_number1(self):
-        number, X, Y = 3, 0, 8
+        number, Y, X = 3, 0, 8
         new_board = self.game.place_number(number, X, Y)
         self.assertEqual(new_board, ["53xx7xxxx",
                                      "6xx195xxx",
@@ -119,7 +119,7 @@ class Test_sudoku(unittest.TestCase):
                                      "xxxx8xx79"])
 
     def test_place_valid_number2(self):
-        number, X, Y = 4, 8, 0
+        number, Y, X = 4, 8, 0
         new_board = self.game.place_number(number, X, Y)
         self.assertEqual(new_board, ["53xx7xxxx",
                                      "6xx195xxx",
@@ -132,7 +132,7 @@ class Test_sudoku(unittest.TestCase):
                                      "xxxx8xx79"])
 
     def test_place_valid_number3(self):
-        number, X, Y = 1, 0, 2
+        number, Y, X = 1, 2, 0
         new_board = self.game.place_number(number, X, Y)
         self.assertEqual(new_board, ["53xx7xxxx",
                                      "6xx195xxx",
@@ -149,7 +149,7 @@ class Test_sudoku(unittest.TestCase):
         self.assertFalse(over)
 
     def test_game_not_over_after_play(self):
-        number, X, Y = 1, 0, 2
+        number, Y, X = 1, 0, 2
         self.game.place_number(number, X, Y)
         over = self.game.game_is_over()
         self.assertFalse(over)
@@ -164,15 +164,15 @@ class Test_sudoku(unittest.TestCase):
                              "961537284",
                              "287419635",
                              "34528617x"])
-        number, X, Y = 9, 8, 8
+        number, Y, X = 9, 8, 8
         full_board.place_number(number, X, Y)
         over = full_board.game_is_over()
         self.assertTrue(over)
 
-    def test_replace_placed_number(self):
-        number, X, Y = 7, 6, 2
+    def test_replace_placed_number1(self):
+        number, Y, X = 7, 2, 6
         new_board = self.game.place_number(number, X, Y)
-        number, X, Y = 5, 6, 2
+        number, Y, X = 5, 2, 6
         new_board = self.game.place_number(number, X, Y)
         self.assertEqual(new_board, ["53xx7xxxx",
                                      "6xx195xxx",
@@ -183,6 +183,36 @@ class Test_sudoku(unittest.TestCase):
                                      "x6xxxx28x",
                                      "xxx419xx5",
                                      "xxxx8xx79"])
+
+    def test_replace_placed_number2(self):
+        number, Y, X = 2, 3, 5
+        new_board = self.game.place_number(number, X, Y)
+        number, Y, X = 1, 3, 5
+        new_board = self.game.place_number(number, X, Y)
+        self.assertEqual(new_board, ["53xx7xxxx",
+                                     "6xx195xxx",
+                                     "x98xxxx6x",
+                                     "8xxx61xx3",
+                                     "4xx8x3xx1",
+                                     "7xxx2xxx6",
+                                     "x6xxxx28x",
+                                     "xxx419xx5",
+                                     "xxxx8xx79"])
+
+    def test_replace_placed_number3(self):
+        number, Y, X = 5, 8, 1
+        new_board = self.game.place_number(number, X, Y)
+        number, Y, X = 4, 8, 1
+        new_board = self.game.place_number(number, X, Y)
+        self.assertEqual(new_board, ["53xx7xxxx",
+                                     "6xx195xxx",
+                                     "x98xxxx6x",
+                                     "8xxx6xxx3",
+                                     "4xx8x3xx1",
+                                     "7xxx2xxx6",
+                                     "x6xxxx28x",
+                                     "xxx419xx5",
+                                     "x4xx8xx79"])
 
 
 if __name__ == "__main__":
