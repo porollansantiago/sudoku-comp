@@ -80,7 +80,33 @@ class Test_sudoku(unittest.TestCase):
                                      "xxxx8xx79"])
 
     def test_place_invalid_number_col(self):
+        number, Y, X = 4, 2, 3
+        new_board = self.game.place_number(number, X, Y)
+        self.assertEqual(new_board, ["53xx7xxxx",
+                                     "6xx195xxx",
+                                     "x98xxxx6x",
+                                     "8xxx6xxx3",
+                                     "4xx8x3xx1",
+                                     "7xxx2xxx6",
+                                     "x6xxxx28x",
+                                     "xxx419xx5",
+                                     "xxxx8xx79"])
+
+    def test_place_invalid_number_col1(self):
         number, Y, X = 8, 7, 0
+        new_board = self.game.place_number(number, X, Y)
+        self.assertEqual(new_board, ["53xx7xxxx",
+                                     "6xx195xxx",
+                                     "x98xxxx6x",
+                                     "8xxx6xxx3",
+                                     "4xx8x3xx1",
+                                     "7xxx2xxx6",
+                                     "x6xxxx28x",
+                                     "xxx419xx5",
+                                     "xxxx8xx79"])
+
+    def test_place_invalid_number_col2(self):
+        number, Y, X = 5, 8, 0
         new_board = self.game.place_number(number, X, Y)
         self.assertEqual(new_board, ["53xx7xxxx",
                                      "6xx195xxx",
@@ -94,6 +120,32 @@ class Test_sudoku(unittest.TestCase):
 
     def test_place_invalid_number_row(self):
         number, Y, X = 8, 8, 2
+        new_board = self.game.place_number(number, X, Y)
+        self.assertEqual(new_board, ["53xx7xxxx",
+                                     "6xx195xxx",
+                                     "x98xxxx6x",
+                                     "8xxx6xxx3",
+                                     "4xx8x3xx1",
+                                     "7xxx2xxx6",
+                                     "x6xxxx28x",
+                                     "xxx419xx5",
+                                     "xxxx8xx79"])
+
+    def test_place_invalid_number_row1(self):
+        number, Y, X = 5, 0, 8
+        new_board = self.game.place_number(number, X, Y)
+        self.assertEqual(new_board, ["53xx7xxxx",
+                                     "6xx195xxx",
+                                     "x98xxxx6x",
+                                     "8xxx6xxx3",
+                                     "4xx8x3xx1",
+                                     "7xxx2xxx6",
+                                     "x6xxxx28x",
+                                     "xxx419xx5",
+                                     "xxxx8xx79"])
+
+    def test_place_invalid_number_row2(self):
+        number, Y, X = 7, 5, 7
         new_board = self.game.place_number(number, X, Y)
         self.assertEqual(new_board, ["53xx7xxxx",
                                      "6xx195xxx",
