@@ -1,9 +1,15 @@
 from sudoku import Sudoku
+from api import Api_acceso
 
 
 class Interface:
-    def __init__(self, board):
-        self.game = Sudoku(board)
+    def __init__(self, board=None):
+        if not board:
+            self.Api_acceso = Api_acceso()
+            self.board = self.Api_acceso.get_new_board()
+        else:
+            self.board = board
+        self.game = Sudoku(self.board)
 
     def play(self, number, X, Y):
 
@@ -19,3 +25,6 @@ class Interface:
 
         return (self.game.place_number(str(number), str(X), str(Y)),
                 self.game.game_is_over())
+
+    def get_board(self):
+        return self.game.board
