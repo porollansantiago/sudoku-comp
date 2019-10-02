@@ -2,14 +2,18 @@ class Sudoku:
     def __init__(self, board):
         self.original_board = board[:]
         self.board = board
+        self.over = False
 
     def game_is_over(self):
-        self.over = True
+        return self.over
+
+    def check_full_board(self):
         for x in range(len(self.board[0])):
             for y in range(len(self.board[0])):
                 if self.board[x][y] == "x":
-                    return False
-        return True
+                    self.over = False
+                    return
+        self.over = True
 
     def place_number(self, number, X, Y):
         number = str(number)
@@ -46,5 +50,7 @@ class Sudoku:
         f[X] = number
         s = ''.join(f)
         self.board[Y] = s
+
+        self.check_full_board()
 
         return self.board
