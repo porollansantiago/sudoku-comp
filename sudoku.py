@@ -1,6 +1,12 @@
+import copy
+
+
 class Sudoku:
     def __init__(self, board):
-        self.original_board = board[:]
+        if type(board[0]) is str:
+            for val in range(9):
+                board[val] = list(board[val])
+        self.original_board = copy.deepcopy(board)
         self.board = board
         self.over = False
 
@@ -46,10 +52,7 @@ class Sudoku:
                 return self.board
 
         # colocar el numero
-        f = list(self.board[Y])
-        f[X] = number
-        s = ''.join(f)
-        self.board[Y] = s
+        self.board[Y][X] = number
 
         self.check_full_board()
 
