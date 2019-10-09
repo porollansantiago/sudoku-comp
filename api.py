@@ -3,7 +3,8 @@ import requests
 
 class Api_acceso():
     def __init__(self, difficulty=1, size=9):
-        self.board = [['x' for _ in range(int(size))] for _ in range(int(size))]
+        self.board = [
+                ['x' for _ in range(int(size))] for _ in range(int(size))]
         if difficulty not in [1, 2, 3]:
             difficulty = 1
         url = "http://www.cs.utep.edu/cheon/ws/sudoku/new/?level=" + str(
