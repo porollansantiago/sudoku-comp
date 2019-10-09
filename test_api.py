@@ -5,10 +5,12 @@ from api import Api_acceso
 class Test_api_acceso(unittest.TestCase):
     def setUp(self):
         self.api = Api_acceso()
+        self.api_4 = Api_acceso(1, 4)
         self.board = self.api.get_new_board()
+        self.board4 = self.api_4.get_new_board()
 
-    # def test_get_valid_board(self):
-    #     board = self.api.get_new_board()
+    def test_board4(self):
+        self.assertEqual(len(self.board4), 4)
 
     def test_board_not_null(self):
         self.assertTrue(self.board)
