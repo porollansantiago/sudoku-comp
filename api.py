@@ -10,15 +10,13 @@ class Api_acceso():
             difficulty) + "&size=" + str(size)
         self.res = requests.get(url)
 
-    def get_new_board(self):
-
-        if self.res.status_code == 200:
-            res = self.res.json()
-            for val in res["squares"]:
-                x = val['x']
-                y = val['y']
-                value = val['value']
-                self.board[x][y] = str(value)
-            return self.board
-        else:
-            return "no se pudo conseguir el tablero"
+    def get_new_board(self, mock_response=None):
+        if mock_response:
+            self.res = mock_response
+        res = self.res.json()
+        for val in res["squares"]:
+            x = val['x']
+            y = val['y']
+            value = val['value']
+            self.board[x][y] = str(value)
+        return self.board
