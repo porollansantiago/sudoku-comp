@@ -16,7 +16,8 @@ def main():
                  "xxxx8xx79"]
     elif board_flag == "no":
         difficulty = input("Dificultad: 1, 2, 3: ")
-        api_accesso = Api_acceso(difficulty)
+        size = input("Tamaño: 4, 9: ")
+        api_accesso = Api_acceso(difficulty, size)
         board = api_accesso.get_new_board()
 
     interface_sudoku = Interface(board)
@@ -33,7 +34,7 @@ def main():
 
 
 def show_board(board):
-    if len(board) == 9:
+    if len(board) == 9 or len(board) == 4:
         for line in board:
             print(line)
     else:
