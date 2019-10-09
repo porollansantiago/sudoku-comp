@@ -35,10 +35,6 @@ class Sudoku:
         return block_Y, block_X
 
     def place_number(self, number, X, Y):
-        number = str(number)
-        X = int(X)
-        Y = int(Y)
-
         # comprobar si el lugar esta disponible
         if self.original_board[Y][X] != 'x':
             return self.board
