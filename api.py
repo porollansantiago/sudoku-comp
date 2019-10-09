@@ -2,12 +2,12 @@ import requests
 
 
 class Api_acceso():
-    def __init__(self, difficulty=1):
-        self.board = [['x' for _ in range(9)] for _ in range(9)]
+    def __init__(self, difficulty=1, size=9):
+        self.board = [['x' for _ in range(int(size))] for _ in range(int(size))]
         if difficulty not in [1, 2, 3]:
             difficulty = 1
         url = "http://www.cs.utep.edu/cheon/ws/sudoku/new/?level=" + str(
-            difficulty) + "&size=9"
+            difficulty) + "&size=" + str(size)
         self.res = requests.get(url)
 
     def get_new_board(self):
