@@ -17,8 +17,8 @@ def main():
     elif board_flag == "no":
         difficulty = input("Dificultad: 1, 2, 3: ")
         size = input("Tamaño: 4, 9: ")
-        api_accesso = Api_acceso(difficulty, size)
-        board = api_accesso.get_new_board()
+        api = Api_acceso(difficulty, size)
+        board = api.get_new_board()
 
     interface_sudoku = Interface(board)
     show_board(interface_sudoku.get_board())
