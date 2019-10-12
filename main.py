@@ -34,13 +34,42 @@ def main():
 
 
 def show_board(board):
+    lines = [2, 5] if len(board) == 9 else [1]
     if len(board) == 9 or len(board) == 4:
-        print("Y")
-        for index in range(len(board)):
-            print(len(board) - index, board[index])
-        print("    1    2    3    4    5    6    7    8    9    X")
+        print_board(board, lines)
+        print_X_coord(board, lines)
     else:
         print(board)
+
+
+def print_X_coord(board, lines):
+    coor_X = "\n     "
+    for val in range(len(board)):
+        coor_X += str(val + 1) + " "
+        if val in lines:
+            coor_X += "  "
+    print(coor_X + " X")
+
+
+def print_board(board, lines):
+    print("Y")
+    for index in range(len(board)):
+        print(len(board) - index, "  ", formatted(board[index], lines))
+        if index in lines:
+            line = '    -'
+            for __ in range(len(board) + lines[0]):
+                line += "--"
+            print(line)
+
+
+def formatted(board_line, lines):
+    new_board_line = []
+    for idx, val in enumerate(board_line):
+        x = val if val != 'x' else '_'
+        new_board_line.append(x + " ")
+        if idx in lines:
+            new_board_line.append("| ")
+    return "".join(new_board_line)
 
 
 main()
