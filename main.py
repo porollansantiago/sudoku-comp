@@ -35,8 +35,10 @@ def main():
 
 def show_board(board):
     if len(board) == 9 or len(board) == 4:
-        for line in board:
-            print(line)
+        print("Y")
+        for index in range(len(board)):
+            print(len(board) - index, board[index])
+        print("    1    2    3    4    5    6    7    8    9    X")
     else:
         print(board)
 
