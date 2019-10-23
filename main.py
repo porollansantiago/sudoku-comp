@@ -1,5 +1,5 @@
 from interface import Interface
-from api import Api_acceso
+from api import Api
 
 
 def run_game():
@@ -17,7 +17,7 @@ def run_game():
     elif board_flag == "no":
         difficulty = input("Dificultad: 1, 2, 3: ")
         size = input("Tamaño: 4, 9: ")
-        api = Api_acceso(difficulty, size)
+        api = Api(difficulty, size)
         board = api.get_new_board()
 
     interface_sudoku = Interface(board)

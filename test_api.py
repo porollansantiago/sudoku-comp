@@ -1,12 +1,12 @@
 import unittest
 from unittest.mock import MagicMock
-from api import Api_acceso
+from api import Api
 
 
 class Test_api_acceso(unittest.TestCase):
     def setUp(self):
-        self.api = Api_acceso()
-        self.api4 = Api_acceso(1, 4)
+        self.api = Api()
+        self.api4 = Api(1, 4)
         self.mock = MagicMock()
         self.mock.json = MagicMock(
             return_value={'response': True, 'size': '9', 'squares': [

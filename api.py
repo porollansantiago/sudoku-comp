@@ -1,7 +1,7 @@
 import requests
 
 
-class Api_acceso():
+class Api():
     def __init__(self, difficulty=1, size=9):
         self.board = [
                 ['x' for _ in range(int(size))] for _ in range(int(size))]
