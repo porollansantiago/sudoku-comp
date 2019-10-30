@@ -1,5 +1,6 @@
 import unittest
 from sudoku import Sudoku
+from parameterized import parameterized
 
 
 class Test_sudoku(unittest.TestCase):
@@ -20,8 +21,16 @@ class Test_sudoku(unittest.TestCase):
         self.game = Sudoku(self.orig_board)
         self.game44 = Sudoku(self.orig_board_44)
 
-    def test_place_invalid_number1(self):
-        number, Y, X = "1", 0, 0
+    @parameterized.expand([
+        ("1", 0, 0),
+        ("1", 3, 0),
+        ("8", 1, 1),
+        ("2", 7, 7),
+        ("2", 3, 3),
+        ("6", 8, 2),
+        ("6", 0, 6),
+    ])
+    def test_place_invalid_number_block(self, number, Y, X):
         board = self.game.place_number(number, X, Y)
         new_board = []
         for val in board:
@@ -36,8 +45,16 @@ class Test_sudoku(unittest.TestCase):
                                      "xxx419xx5",
                                      "xxxx8xx79"])
 
-    def test_place_invalid_number_block(self):
-        number, Y, X = "1", 3, 0
+    @parameterized.expand([
+        ("1", 3, 3),
+        ("9", 4, 4),
+        ("6", 7, 7),
+        ("5", 6, 0),
+        ("7", 6, 0),
+        ("5", 8, 0),
+        ("8", 7, 0)
+    ])
+    def test_place_invalid_number_col(self, number, Y, X):
         board = self.game.place_number(number, X, Y)
         new_board = []
         for val in board:
@@ -52,140 +69,20 @@ class Test_sudoku(unittest.TestCase):
                                      "xxx419xx5",
                                      "xxxx8xx79"])
 
-    def test_place_invalid_number_block2(self):
-        number, Y, X = "8", 1, 1
-        board = self.game.place_number(number, X, Y)
-        new_board = []
-        for val in board:
-            new_board.append("".join(val))
-        self.assertEqual(new_board, ["53xx7xxxx",
-                                     "6xx195xxx",
-                                     "x98xxxx6x",
-                                     "8xxx6xxx3",
-                                     "4xx8x3xx1",
-                                     "7xxx2xxx6",
-                                     "x6xxxx28x",
-                                     "xxx419xx5",
-                                     "xxxx8xx79"])
-
-    def test_place_invalid_number_block3(self):
-        number, Y, X = "2", 7, 7
+    @parameterized.expand([
+        ("9", 1, 1),
+        ("4", 4, 4),
+        ("4", 7, 7),
+        ("5", 0, 7),
+        ("3", 0, 7),
+        ("7", 0, 6),
+        ("7", 0, 8),
+    ])
+    def test_place_invalid_number_row(self, number, Y, X):
         board = self.game.place_number(number, X, Y)
         new_board = []
         for val in board:
             new_board.append("".join(val))        
-        self.assertEqual(new_board, ["53xx7xxxx",
-                                     "6xx195xxx",
-                                     "x98xxxx6x",
-                                     "8xxx6xxx3",
-                                     "4xx8x3xx1",
-                                     "7xxx2xxx6",
-                                     "x6xxxx28x",
-                                     "xxx419xx5",
-                                     "xxxx8xx79"])
-
-    def test_place_invalid_number_block4(self):
-        number, Y, X = "2", 3, 3
-        board = self.game.place_number(number, X, Y)
-        new_board = []
-        for val in board:
-            new_board.append("".join(val))
-        self.assertEqual(new_board, ["53xx7xxxx",
-                                     "6xx195xxx",
-                                     "x98xxxx6x",
-                                     "8xxx6xxx3",
-                                     "4xx8x3xx1",
-                                     "7xxx2xxx6",
-                                     "x6xxxx28x",
-                                     "xxx419xx5",
-                                     "xxxx8xx79"])
-
-    def test_place_invalid_number_col(self):
-        number, Y, X = "1", 3, 3
-        board = self.game.place_number(number, X, Y)
-        new_board = []
-        for val in board:
-            new_board.append("".join(val))
-        self.assertEqual(new_board, ["53xx7xxxx",
-                                     "6xx195xxx",
-                                     "x98xxxx6x",
-                                     "8xxx6xxx3",
-                                     "4xx8x3xx1",
-                                     "7xxx2xxx6",
-                                     "x6xxxx28x",
-                                     "xxx419xx5",
-                                     "xxxx8xx79"])
-
-    def test_place_invalid_number_col1(self):
-        number, Y, X = "9", 4, 4
-        board = self.game.place_number(number, X, Y)
-        new_board = []
-        for val in board:
-            new_board.append("".join(val))
-        self.assertEqual(new_board, ["53xx7xxxx",
-                                     "6xx195xxx",
-                                     "x98xxxx6x",
-                                     "8xxx6xxx3",
-                                     "4xx8x3xx1",
-                                     "7xxx2xxx6",
-                                     "x6xxxx28x",
-                                     "xxx419xx5",
-                                     "xxxx8xx79"])
-
-    def test_place_invalid_number_col2(self):
-        number, Y, X = "6", 7, 7
-        board = self.game.place_number(number, X, Y)
-        new_board = []
-        for val in board:
-            new_board.append("".join(val))
-        self.assertEqual(new_board, ["53xx7xxxx",
-                                     "6xx195xxx",
-                                     "x98xxxx6x",
-                                     "8xxx6xxx3",
-                                     "4xx8x3xx1",
-                                     "7xxx2xxx6",
-                                     "x6xxxx28x",
-                                     "xxx419xx5",
-                                     "xxxx8xx79"])
-
-    def test_place_invalid_number_row(self):
-        number, Y, X = "9", 1, 1
-        board = self.game.place_number(number, X, Y)
-        new_board = []
-        for val in board:
-            new_board.append("".join(val))        
-        self.assertEqual(new_board, ["53xx7xxxx",
-                                     "6xx195xxx",
-                                     "x98xxxx6x",
-                                     "8xxx6xxx3",
-                                     "4xx8x3xx1",
-                                     "7xxx2xxx6",
-                                     "x6xxxx28x",
-                                     "xxx419xx5",
-                                     "xxxx8xx79"])
-
-    def test_place_invalid_number_row1(self):
-        number, Y, X = "4", 4, 4
-        board = self.game.place_number(number, X, Y)
-        new_board = []
-        for val in board:
-            new_board.append("".join(val))
-        self.assertEqual(new_board, ["53xx7xxxx",
-                                     "6xx195xxx",
-                                     "x98xxxx6x",
-                                     "8xxx6xxx3",
-                                     "4xx8x3xx1",
-                                     "7xxx2xxx6",
-                                     "x6xxxx28x",
-                                     "xxx419xx5",
-                                     "xxxx8xx79"])
-
-    def test_place_invalid_number_row2(self):
-        number, Y, X = "4", 7, 7
-        board = self.game.place_number(number, X, Y)
-        new_board = []
-        for val in board:
-            new_board.append("".join(val))
         self.assertEqual(new_board, ["53xx7xxxx",
                                      "6xx195xxx",
                                      "x98xxxx6x",
