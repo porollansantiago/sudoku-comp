@@ -172,62 +172,48 @@ class Test_sudoku(unittest.TestCase):
         over = full_board.game_is_over()
         self.assertTrue(over)
 
-    def test_replace_placed_number1(self):
-        number, Y, X = "7", 2, 6
-        board = self.game.place_number(number, X, Y)
-        number, Y, X = "5", 2, 6
-        board = self.game.place_number(number, X, Y)
+    @parameterized.expand([
+        ("7", "5", 2, 6, ["53xx7xxxx",
+                          "6xx195xxx",
+                          "x98xxx56x",
+                          "8xxx6xxx3",
+                          "4xx8x3xx1",
+                          "7xxx2xxx6",
+                          "x6xxxx28x",
+                          "xxx419xx5",
+                          "xxxx8xx79"]),
+        ("2", "1", 3, 5, ["53xx7xxxx",
+                          "6xx195xxx",
+                          "x98xxxx6x",
+                          "8xxx61xx3",
+                          "4xx8x3xx1",
+                          "7xxx2xxx6",
+                          "x6xxxx28x",
+                          "xxx419xx5",
+                          "xxxx8xx79"]),
+        ("5", "4", 8, 1, ["53xx7xxxx",
+                          "6xx195xxx",
+                          "x98xxxx6x",
+                          "8xxx6xxx3",
+                          "4xx8x3xx1",
+                          "7xxx2xxx6",
+                          "x6xxxx28x",
+                          "xxx419xx5",
+                          "x4xx8xx79"])
+    ])
+    def test_replace_placed_number1(self, number1, number2, Y, X, expected):
+        board = self.game.place_number(number1, X, Y)
+        board = self.game.place_number(number2, X, Y)
         new_board = []
         for val in board:
             new_board.append("".join(val))
-        self.assertEqual(new_board, ["53xx7xxxx",
-                                     "6xx195xxx",
-                                     "x98xxx56x",
-                                     "8xxx6xxx3",
-                                     "4xx8x3xx1",
-                                     "7xxx2xxx6",
-                                     "x6xxxx28x",
-                                     "xxx419xx5",
-                                     "xxxx8xx79"])
+        self.assertEqual(new_board, expected)
 
-    def test_replace_placed_number2(self):
-        number, Y, X = "2", 3, 5
-        board = self.game.place_number(number, X, Y)
-        number, Y, X = "1", 3, 5
-        board = self.game.place_number(number, X, Y)
-        new_board = []
-        for val in board:
-            new_board.append("".join(val))
-        self.assertEqual(new_board, ["53xx7xxxx",
-                                     "6xx195xxx",
-                                     "x98xxxx6x",
-                                     "8xxx61xx3",
-                                     "4xx8x3xx1",
-                                     "7xxx2xxx6",
-                                     "x6xxxx28x",
-                                     "xxx419xx5",
-                                     "xxxx8xx79"])
-
-    def test_replace_placed_number3(self):
-        number, Y, X = "5", 8, 1
-        new_board = self.game.place_number(number, X, Y)
-        number, Y, X = "4", 8, 1
-        board = self.game.place_number(number, X, Y)
-        new_board = []
-        for val in board:
-            new_board.append("".join(val))
-        self.assertEqual(new_board, ["53xx7xxxx",
-                                     "6xx195xxx",
-                                     "x98xxxx6x",
-                                     "8xxx6xxx3",
-                                     "4xx8x3xx1",
-                                     "7xxx2xxx6",
-                                     "x6xxxx28x",
-                                     "xxx419xx5",
-                                     "x4xx8xx79"])
-
-    def test_place_invalid_number_block41(self):
-        number, Y, X = "2", 3, 3
+    @parameterized.expand([
+        ("2", 3, 3),
+        ("1", 1, 1),
+    ])
+    def test_place_invalid_number_block4x4(self, number, Y, X):
         board = self.game44.place_number(number, X, Y)
         new_board = []
         for val in board:
@@ -237,61 +223,38 @@ class Test_sudoku(unittest.TestCase):
                                      "x32x",
                                      "4xxx"])
 
-    def test_place_invalid_number_row41(self):
-        number, Y, X = "1", 1, 1
+    @parameterized.expand([
+        ("1", 0, 0, ["12xx",
+                     "3xx1",
+                     "x32x",
+                     "4xxx"]),
+        ("3", 0, 2, ["x23x",
+                     "3xx1",
+                     "x32x",
+                     "4xxx"]),
+        ("3", 3, 3, ["x2xx",
+                     "3xx1",
+                     "x32x",
+                     "4xx3"]),
+    ])
+    def test_place_valid_number4x4(self, number, Y, X, expected):
         board = self.game44.place_number(number, X, Y)
         new_board = []
         for val in board:
             new_board.append("".join(val))
-        self.assertEqual(new_board, ["x2xx",
-                                     "3xx1",
-                                     "x32x",
-                                     "4xxx"])
+        self.assertEqual(new_board, expected)
 
-    def test_place_valid_number41(self):
-        number, Y, X = "1", 0, 0
-        board = self.game44.place_number(number, X, Y)
-        new_board = []
-        for val in board:
-            new_board.append("".join(val))
-        self.assertEqual(new_board, ["12xx",
-                                     "3xx1",
-                                     "x32x",
-                                     "4xxx"])
-
-    def test_place_valid_number42(self):
-        number, Y, X = "3", 0, 2
-        board = self.game44.place_number(number, X, Y)
-        new_board = []
-        for val in board:
-            new_board.append("".join(val))
-        self.assertEqual(new_board, ["x23x",
-                                     "3xx1",
-                                     "x32x",
-                                     "4xxx"])
-
-    def test_place_valid_number4(self):
-        number, Y, X = "3", 3, 3
-        board = self.game44.place_number(number, X, Y)
-        new_board = []
-        for val in board:
-            new_board.append("".join(val))
-        self.assertEqual(new_board, ["x2xx",
-                                     "3xx1",
-                                     "x32x",
-                                     "4xx3"])
-
-    def test_game_not_over4(self):
+    def test_game_not_over4x4(self):
         over = self.game44.game_is_over()
         self.assertFalse(over)
 
-    def test_game_not_over_after_play4(self):
+    def test_game_not_over_after_play4x4(self):
         number, Y, X = "3", 3, 3
         self.game44.place_number(number, X, Y)
         over = self.game.game_is_over()
         self.assertFalse(over)
 
-    def test_game_over_after_play4(self):
+    def test_game_over_after_play4x4(self):
         full_board = Sudoku(["2134",
                              "3421",
                              "1342",
@@ -301,18 +264,27 @@ class Test_sudoku(unittest.TestCase):
         over = full_board.game_is_over()
         self.assertTrue(over)
 
-    def test_replace_placed_number41(self):
-        number, Y, X = "3", 0, 2
-        board = self.game44.place_number(number, X, Y)
-        number, Y, X = "4", 0, 2
-        board = self.game44.place_number(number, X, Y)
+    @parameterized.expand([
+        ("3", "4", 0, 2, ["x24x",
+                          "3xx1",
+                          "x32x",
+                          "4xxx"]),
+        ("3", "1", 3, 2, ["x2xx",
+                          "3xx1",
+                          "x32x",
+                          "4x1x"]),
+        ("1", "3", 3, 2, ["x2xx",
+                          "3xx1",
+                          "x32x",
+                          "4x3x"]),
+    ])
+    def test_replace_placed_number4x4(self, number1, number2, Y, X, expected):
+        board = self.game44.place_number(number1, X, Y)
+        board = self.game44.place_number(number2, X, Y)
         new_board = []
         for val in board:
             new_board.append("".join(val))
-        self.assertEqual(new_board, ["x24x",
-                                     "3xx1",
-                                     "x32x",
-                                     "4xxx"])
+        self.assertEqual(new_board, expected)
 
 
 if __name__ == "__main__":
