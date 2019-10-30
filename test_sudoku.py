@@ -93,53 +93,59 @@ class Test_sudoku(unittest.TestCase):
                                      "xxx419xx5",
                                      "xxxx8xx79"])
 
-    def test_place_valid_number1(self):
-        number, Y, X = "2", 1, 1
+    @parameterized.expand([
+        ("2", 1, 1, ["53xx7xxxx",
+                     "62x195xxx",
+                     "x98xxxx6x",
+                     "8xxx6xxx3",
+                     "4xx8x3xx1",
+                     "7xxx2xxx6",
+                     "x6xxxx28x",
+                     "xxx419xx5",
+                     "xxxx8xx79"]),
+        ("5", 4, 4, ["53xx7xxxx",
+                     "6xx195xxx",
+                     "x98xxxx6x",
+                     "8xxx6xxx3",
+                     "4xx853xx1",
+                     "7xxx2xxx6",
+                     "x6xxxx28x",
+                     "xxx419xx5",
+                     "xxxx8xx79"]),
+        ("3", 7, 7, ["53xx7xxxx",
+                     "6xx195xxx",
+                     "x98xxxx6x",
+                     "8xxx6xxx3",
+                     "4xx8x3xx1",
+                     "7xxx2xxx6",
+                     "x6xxxx28x",
+                     "xxx419x35",
+                     "xxxx8xx79"]),
+        ("2", 0, 8, ["53xx7xxx2",
+                     "6xx195xxx",
+                     "x98xxxx6x",
+                     "8xxx6xxx3",
+                     "4xx8x3xx1",
+                     "7xxx2xxx6",
+                     "x6xxxx28x",
+                     "xxx419xx5",
+                     "xxxx8xx79"]),
+        ("2", 8, 0, ["53xx7xxxx",
+                     "6xx195xxx",
+                     "x98xxxx6x",
+                     "8xxx6xxx3",
+                     "4xx8x3xx1",
+                     "7xxx2xxx6",
+                     "x6xxxx28x",
+                     "xxx419xx5",
+                     "2xxx8xx79"]),
+    ])
+    def test_place_valid_number(self, number, Y, X, expected):
         board = self.game.place_number(number, X, Y)
         new_board = []
         for val in board:
             new_board.append("".join(val))
-        self.assertEqual(new_board, ["53xx7xxxx",
-                                     "62x195xxx",
-                                     "x98xxxx6x",
-                                     "8xxx6xxx3",
-                                     "4xx8x3xx1",
-                                     "7xxx2xxx6",
-                                     "x6xxxx28x",
-                                     "xxx419xx5",
-                                     "xxxx8xx79"])
-
-    def test_place_valid_number2(self):
-        number, Y, X = "5", 4, 4
-        board = self.game.place_number(number, X, Y)
-        new_board = []
-        for val in board:
-            new_board.append("".join(val))
-        self.assertEqual(new_board, ["53xx7xxxx",
-                                     "6xx195xxx",
-                                     "x98xxxx6x",
-                                     "8xxx6xxx3",
-                                     "4xx853xx1",
-                                     "7xxx2xxx6",
-                                     "x6xxxx28x",
-                                     "xxx419xx5",
-                                     "xxxx8xx79"])
-
-    def test_place_valid_number3(self):
-        number, Y, X = "3", 7, 7
-        board = self.game.place_number(number, X, Y)
-        new_board = []
-        for val in board:
-            new_board.append("".join(val))
-        self.assertEqual(new_board, ["53xx7xxxx",
-                                     "6xx195xxx",
-                                     "x98xxxx6x",
-                                     "8xxx6xxx3",
-                                     "4xx8x3xx1",
-                                     "7xxx2xxx6",
-                                     "x6xxxx28x",
-                                     "xxx419x35",
-                                     "xxxx8xx79"])
+        self.assertEqual(new_board, expected)
 
     def test_game_not_over(self):
         over = self.game.game_is_over()
