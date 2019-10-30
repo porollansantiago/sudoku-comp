@@ -34,8 +34,11 @@ def run_game():
 
 
 def show_board(board):
-    for line in board:
-        print(line)
+    if type(board) is str:
+        print(board)
+    else:
+        for line in board:
+            print(line)
 
 
 if __name__ == "__main__":
